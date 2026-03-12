@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Event Planner</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/pages/auth.css" />
+  </head>
+  <body class="auth-body">
+
+    <div class="auth-container">
+
+      <!-- Logo -->
+      <div class="auth-logo">
+        <h1>Event Planner</h1>
+        <p>Plan your perfect event</p>
+      </div>
+
+      <!-- Card -->
+      <div class="auth-card">
+        <h2>Welcome back</h2>
+        <p class="auth-subtitle">Sign in to your account</p>
+
+        <!-- Error message -->
+        <div class="alert alert-error" id="errorMsg" style="display:none;"></div>
+
+        <!-- Form -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="your@email.com"
+            autocomplete="email"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Your password"
+            autocomplete="current-password"
+          />
+          <div class="form-hint">
+            <a href="/reset-password.html">Forgot password?</a>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-full" id="loginBtn">
+          Sign in
+        </button>
+
+        <p class="auth-footer">
+          Don't have an account?
+          <a href="/register.html">Create one</a>
+        </p>
+      </div>
+
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script>
+      // Redirect if already logged in
+      if (isAuthenticated()) {
+        globalThis.location.href = "/app/dashboard.html";
+      }
+
+      const loginBtn = document.getElementById("loginBtn");
+      const errorMsg = document.getElementById("errorMsg");
+
+      const showError = (message) => {
+        errorMsg.textContent = message;
+        errorMsg.style.display = "block";
+      };
+
+      const hideError = () => {
+        errorMsg.style.display = "none";
+      };
+
+      const setLoading = (loading) => {
+        loginBtn.disabled = loading;
+        loginBtn.textContent = loading ? "Signing in..." : "Sign in";
+      };
+
+      loginBtn.addEventListener("click", async () => {
+        hideError();
+
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+
+        // Basic validation
+        if (!email || !password) {
+          showError("Please fill in all fields");
+          return;
+        }
+
+        setLoading(true);
+
+        try {
+          const data = await auth.login(email, password);
+
+          globalThis.location.href = "/app/dashboard.html";
+        } catch (error) {
+          showError(error.message);
+        } finally {
+          setLoading(false);
+        }
+      });
+
+      // Allow Enter key to submit
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") loginBtn.click();
+      });
+    </script>
+
+  </body>
+</html>
