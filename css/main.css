@@ -172,6 +172,10 @@ a:hover {
   color: var(--color-success);
 }
 
+.stat-number {
+  font-family: 'Courier New', monospace;
+}
+
 /* ─── Utilities ──────────────────────────────────────────────── */
 .text-muted { color: var(--color-muted); }
 .text-gold  { color: var(--color-gold); }

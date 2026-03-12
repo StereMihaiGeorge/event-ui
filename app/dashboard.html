@@ -1,18 +1,271 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard | Event Planner</title>
+    <title>Panou | Event Planner</title>
     <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/components.css" />
+    <link rel="stylesheet" href="/css/pages/app.css" />
   </head>
-  <body>
-    <h1 style="color: #C9A96E; padding: 40px;">
-      Welcome! You are logged in successfully! 🎉
-    </h1>
+  <body class="app-body">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <h1>Event Planner</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="/app/dashboard.html" class="nav-item active">
+          <span class="nav-icon">▦</span>
+          Panou
+        </a>
+        <a href="/app/guests.html" class="nav-item">
+          <span class="nav-icon">♟</span>
+          Invitați
+        </a>
+        <a href="/app/tables.html" class="nav-item">
+          <span class="nav-icon">◫</span>
+          Mese
+        </a>
+        <a href="/app/todos.html" class="nav-item">
+          <span class="nav-icon">✓</span>
+          Sarcini
+        </a>
+        <a href="/app/songs.html" class="nav-item">
+          <span class="nav-icon">♪</span>
+          Melodii
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <span id="username" class="sidebar-username"></span>
+        <button class="btn btn-secondary btn-sm" id="logoutBtn">
+          Ieșire
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- No Event Section -->
+      <div id="noEventSection" class="no-event-section" style="display:none;">
+        <div class="no-event-card">
+          <h2>Welcome to Event Planner</h2>
+          <p>You don't have any events yet. Create your first one!</p>
+          <button class="btn btn-primary" onclick="showCreateEventModal()">
+            + Create First Event
+          </button>
+        </div>
+      </div>
+
+      <!-- Dashboard Section -->
+      <div id="dashboardSection" style="display:none;">
+
+        <!-- Header -->
+        <div class="page-header">
+          <div>
+            <div class="event-type-badge" id="eventType"></div>
+            <h2 id="eventTitle"></h2>
+            <p class="text-muted" id="eventDate"></p>
+            <p class="text-muted" id="eventVenue"></p>
+          </div>
+          <div class="header-actions">
+            <div class="days-left-card">
+              <span id="daysLeft" class="days-left-number"></span>
+              <span id="daysLeftLabel" class="days-left-label">zile rămase</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+
+          <!-- Guests Card -->
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-title">Guests</span>
+              <a href="/app/guests.html" class="stat-card-link">View all →</a>
+            </div>
+            <div class="stat-card-main">
+              <span class="stat-number" id="statTotalPeople">-</span>
+              <span class="stat-label">persoane total</span>
+            </div>
+            <div class="stat-card-breakdown">
+              <div class="breakdown-item">
+                <span class="breakdown-dot dot-success"></span>
+                <span id="statConfirmed">-</span> confirmați
+              </div>
+              <div class="breakdown-item">
+                <span class="breakdown-dot dot-warning"></span>
+                <span id="statPending">-</span> în așteptare
+              </div>
+              <div class="breakdown-item">
+                <span class="breakdown-dot dot-error"></span>
+                <span id="statDeclined">-</span> refuzate
+              </div>
+            </div>
+          </div>
+
+          <!-- Tables Card -->
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-title">Tables</span>
+              <a href="/app/tables.html" class="stat-card-link">View all →</a>
+            </div>
+            <div class="stat-card-main">
+              <span class="stat-number" id="statTables">-</span>
+              <span class="stat-label">mese total</span>
+            </div>
+            <div class="stat-card-breakdown">
+              <div class="breakdown-item">
+                <span class="breakdown-dot dot-success"></span>
+                <span id="statOccupied">-</span> locuri ocupate
+              </div>
+              <div class="breakdown-item">
+                <span class="breakdown-dot dot-warning"></span>
+                <span id="statAvailable">-</span> locuri disponibile
+              </div>
+            </div>
+          </div>
+
+          <!-- Todos Card -->
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-title">Checklist</span>
+              <a href="/app/todos.html" class="stat-card-link">Vezi tot→</a>
+            </div>
+            <div class="stat-card-main">
+              <span class="stat-number" id="statTodoDone">-</span>
+              <span class="stat-label">of <span id="statTodoTotal">-</span> done</span>
+            </div>
+            <div class="progress-bar-container">
+              <div class="progress-bar">
+                <div class="progress-bar-fill" id="todoProgress"></div>
+              </div>
+              <span class="progress-text" id="todoProgressText">0% finalizat</span>
+            </div>
+            <div class="stat-card-breakdown">
+              <div class="breakdown-item">
+                <span class="breakdown-dot dot-error"></span>
+                <span id="statTodoOverdue">-</span> întârziate
+              </div>
+            </div>
+          </div>
+
+          <!-- Songs Card -->
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-title">Melodii</span>
+              <a href="/app/songs.html" class="stat-card-link">Vezi tot →</a>
+            </div>
+            <div class="stat-card-main">
+              <span class="stat-number" id="statSongs">-</span>
+              <span class="stat-label">cereri</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Create Event Modal -->
+    <div class="modal-overlay" id="createEventModal" style="display:none;">
+      <div class="modal">
+        <div class="modal-header">
+          <h3>Creează Eveniment Nou</h3>
+          <button class="modal-close" onclick="hideCreateEventModal()">✕</button>
+        </div>
+
+        <div class="alert alert-error" id="createEventError" style="display:none;"></div>
+
+        <div class="form-group">
+          <label>Tip Eveniment</label>
+          <select id="eventTypeSelect" onchange="handleEventTypeChange()">
+            <option value="">Select type...</option>
+            <option value="wedding">Nuntă</option>
+            <option value="baptism">Botez</option>
+            <option value="birthday">Zi de naștere</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Titlu Eveniment</label>
+          <input type="text" id="eventTitleInput" placeholder="e.g. Nunta Elena & Stefan" />
+        </div>
+
+        <div class="form-group">
+          <label>Dată</label>
+          <input type="date" id="eventDateInput" />
+        </div>
+
+        <div class="form-group">
+          <label>Locație</label>
+          <input type="text" id="eventVenueInput" placeholder="e.g. Grand Hotel" />
+        </div>
+
+        <div class="form-group">
+          <label>Oraș</label>
+          <input type="text" id="eventCityInput" placeholder="e.g. Bucuresti" />
+        </div>
+
+        <!-- Wedding Fields -->
+        <div id="weddingFields" style="display:none;">
+          <div class="form-group">
+            <label>Numele Miresei</label>
+            <input type="text" id="brideNameInput" placeholder="e.g. Elena" />
+          </div>
+          <div class="form-group">
+            <label>Numele Mirelui</label>
+            <input type="text" id="groomNameInput" placeholder="e.g. Stefan" />
+          </div>
+        </div>
+
+        <!-- Baptism Fields -->
+        <div id="baptismFields" style="display:none;">
+          <div class="form-group">
+            <label>Numele Copilului</label>
+            <input type="text" id="childNameInput" placeholder="e.g. Maria" />
+          </div>
+          <div class="form-group">
+            <label>Numele Părinților</label>
+            <input type="text" id="parentNameInput" placeholder="e.g. Familia Popescu" />
+          </div>
+        </div>
+
+        <!-- Birthday Fields -->
+        <div id="birthdayFields" style="display:none;">
+          <div class="form-group">
+            <label>Numele Persoanei</label>
+            <input type="text" id="personNameInput" placeholder="e.g. Stefan" />
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" onclick="hideCreateEventModal()">
+            Anulează
+          </button>
+          <button class="btn btn-primary" id="createEventBtn" onclick="handleCreateEvent()">
+            Creează Eveniment
+          </button>
+        </div>
+      </div>
+    </div>
+
     <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/pages/dashboard.js"></script>
     <script>
       requireAuth();
+
+      // Logout
+      document.getElementById("logoutBtn").addEventListener("click", async () => {
+        await auth.logout();
+      });
     </script>
+
   </body>
 </html>
