@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mese | Event Planner</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/components/index.css" />
+    <link rel="stylesheet" href="/css/pages/app.css" />
+  </head>
+  <body class="app-body">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <h1>Event Planner</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="/app/dashboard.html" class="nav-item">
+          <span class="nav-icon">▦</span> Panou
+        </a>
+        <a href="/app/guests.html" class="nav-item">
+          <span class="nav-icon">♟</span> Invitați
+        </a>
+        <a href="/app/tables.html" class="nav-item active">
+          <span class="nav-icon">◫</span> Mese
+        </a>
+        <a href="/app/todos.html" class="nav-item">
+          <span class="nav-icon">✓</span> Sarcini
+        </a>
+        <a href="/app/songs.html" class="nav-item">
+          <span class="nav-icon">♪</span> Melodii
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <span class="sidebar-username" id="username"></span>
+        <button class="btn btn-secondary btn-sm" id="logoutBtn">
+          Ieșire
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Header -->
+      <div class="page-header">
+        <div>
+          <h2>Mese</h2>
+          <p class="text-muted" id="eventTitle"></p>
+        </div>
+        <button class="btn btn-primary" onclick="openAddModal()">
+          + Adaugă Masă
+        </button>
+      </div>
+
+      <!-- Summary Bar -->
+      <div class="summary-bar" id="summaryBar">
+        <div class="summary-item">
+          <span class="summary-number" id="summaryTables">0</span>
+          <span class="summary-label">Total mese</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-item">
+          <span class="summary-number" id="summaryCapacity">0</span>
+          <span class="summary-label">Capacitate totală</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-item">
+          <span class="summary-number text-warning" 
+            id="summaryOccupied">0</span>
+          <span class="summary-label">Locuri ocupate</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-item">
+          <span class="summary-number text-success" 
+            id="summaryAvailable">0</span>
+          <span class="summary-label">Locuri libere</span>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div id="emptyState" style="display:none;">
+        <div class="table-empty" style="padding: 60px; text-align: center;">
+          <p>Încă nu ai nicio masă adăugată.</p>
+          <p class="text-muted" style="margin-top: 8px; font-size: 12px;">
+            Folosește butonul 
+            <strong style="color: var(--color-gold)">
+              + Adaugă Masă
+            </strong> 
+            din dreapta sus pentru a adăuga prima masă.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tables Grid -->
+      <div class="tables-grid" id="tablesGrid"></div>
+
+    </main>
+
+    <!-- Table Modal -->
+    <div class="modal-overlay" id="tableModal" style="display:none;">
+      <div class="modal" style="max-width: 360px;">
+        <div class="modal-header">
+          <h3 id="modalTitle">Adaugă Masă</h3>
+          <button class="modal-close" onclick="closeTableModal()">✕</button>
+        </div>
+
+        <div class="alert alert-error" id="tableError" 
+          style="display:none;"></div>
+
+        <div class="form-group">
+          <label>Nume masă *</label>
+          <input type="text" id="tableName" 
+            placeholder="ex: Masa 1, Masa Familiei" />
+        </div>
+
+        <div class="form-group">
+          <label>Capacitate (persoane)</label>
+          <input type="number" id="tableCapacity" 
+            min="1" max="50" value="8" />
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" 
+            onclick="closeTableModal()">Anulează</button>
+          <button class="btn btn-primary" id="saveTableBtn" 
+            onclick="saveTable()">Adaugă</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/pages/tables.js"></script>
+    <script>
+      requireAuth();
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      if (user.username) {
+        document.getElementById("username").textContent = user.username;
+      }
+      document.getElementById("logoutBtn")
+        .addEventListener("click", () => auth.logout());
+    </script>
+
+  </body>
+</html>

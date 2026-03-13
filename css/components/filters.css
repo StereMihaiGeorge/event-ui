@@ -1,0 +1,44 @@
+/* ─── Filters Bar ────────────────────────────────────────────── */
+.filters-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.filter-input {
+  flex: 1;
+  padding: 8px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 14px;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.filter-input:focus {
+  border-color: var(--color-gold);
+}
+
+.filter-input::placeholder {
+  color: var(--color-muted);
+}
+
+.filter-select {
+  padding: 8px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--transition);
+}
+
+.filter-select:focus {
+  border-color: var(--color-gold);
+}

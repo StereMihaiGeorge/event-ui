@@ -1,0 +1,93 @@
+/* ─── Tables Grid ────────────────────────────────────────────── */
+.tables-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+/* ─── Table Card ─────────────────────────────────────────────── */
+.table-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: border-color var(--transition);
+}
+
+.table-card:hover {
+  border-color: var(--color-gold);
+}
+
+.table-card-full {
+  border-color: #2a1010;
+}
+
+.table-card-almost {
+  border-color: #2a1f0f;
+}
+
+.table-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.table-card-name {
+  font-size: 15px;
+  color: var(--color-gold-light);
+  letter-spacing: 1px;
+}
+
+.table-capacity-bar {
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.table-capacity-fill {
+  height: 100%;
+  background: var(--color-gold);
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
+.table-card-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--color-muted);
+  margin-bottom: 12px;
+}
+
+.table-spots strong {
+  color: var(--color-text);
+  font-size: 14px;
+}
+
+.table-guests-list {
+  border-top: 1px solid var(--color-border);
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.table-guest-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--color-text);
+}
+
+.table-no-guests {
+  border-top: 1px solid var(--color-border);
+  padding-top: 12px;
+  font-size: 12px;
+  color: var(--color-muted);
+  text-align: center;
+  font-style: italic;
+}
