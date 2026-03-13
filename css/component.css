@@ -138,3 +138,247 @@
   gap: 12px;
   margin-top: 24px;
 }
+
+/* ─── Summary Bar ────────────────────────────────────────────── */
+.summary-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 16px 24px;
+  margin-bottom: 16px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+
+.summary-number {
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--color-gold-light);
+  line-height: 1;
+}
+
+.summary-label {
+  font-size: 11px;
+  color: var(--color-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.summary-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--color-border);
+  margin: 0 16px;
+}
+
+.text-success { color: var(--color-success); }
+.text-warning { color: var(--color-warning); }
+.text-error   { color: var(--color-error); }
+
+/* ─── Filters Bar ────────────────────────────────────────────── */
+.filters-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.filter-input {
+  flex: 1;
+  padding: 8px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 14px;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.filter-input:focus {
+  border-color: var(--color-gold);
+}
+
+.filter-input::placeholder {
+  color: var(--color-muted);
+}
+
+.filter-select {
+  padding: 8px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--transition);
+}
+
+.filter-select:focus {
+  border-color: var(--color-gold);
+}
+
+/* ─── Data Table ─────────────────────────────────────────────── */
+.table-container {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--color-border);
+  background: #ffffff03;
+}
+
+.data-table td {
+  padding: 12px 16px;
+  font-size: 13px;
+  border-bottom: 1px solid #ffffff08;
+  vertical-align: middle;
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table tr:hover td {
+  background: #ffffff03;
+}
+
+.table-empty {
+  text-align: center;
+  color: var(--color-muted);
+  padding: 40px !important;
+  font-size: 13px;
+}
+
+.guest-name {
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.guest-meta {
+  font-size: 11px;
+  color: var(--color-muted);
+  margin-top: 2px;
+}
+
+/* ─── Badges ─────────────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+.badge-confirmed {
+  background: #0f2a0f;
+  color: var(--color-success);
+  border: 1px solid var(--color-success);
+}
+
+.badge-pending {
+  background: #2a1f0f;
+  color: var(--color-warning);
+  border: 1px solid var(--color-warning);
+}
+
+.badge-declined {
+  background: #2a0f0f;
+  color: var(--color-error);
+  border: 1px solid var(--color-error);
+}
+
+.badge-bride {
+  background: #1a0f2a;
+  color: #b088e0;
+  border: 1px solid #b088e0;
+}
+
+.badge-groom {
+  background: #0f1a2a;
+  color: #88b0e0;
+  border: 1px solid #88b0e0;
+}
+
+.badge-both {
+  background: #1a1a1a;
+  color: var(--color-muted);
+  border: 1px solid var(--color-border);
+}
+
+.badge-sent {
+  background: #0f2a0f;
+  color: var(--color-success);
+  border: 1px solid var(--color-success);
+}
+
+.badge-not-sent {
+  background: #1a1a1a;
+  color: var(--color-muted);
+  border: 1px solid var(--color-border);
+}
+
+/* ─── Action Buttons ─────────────────────────────────────────── */
+.action-buttons {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.btn-icon {
+  background: none;
+  border: 1px solid var(--color-border);
+  color: var(--color-muted);
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+
+.btn-icon:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+.btn-icon-danger:hover {
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+/* ─── Form Row ───────────────────────────────────────────────── */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
